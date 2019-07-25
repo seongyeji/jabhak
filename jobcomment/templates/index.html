@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block contents %}
+
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8 blog-main">
+{% for blog in posts %}
+<div class="row">
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+        <img src="{{ blog.image.url }}" width= "100%" >
+      <div class="card-body">
+        <h6 class = "card-text">제목:{{blog.title}}</h6>
+        <p class="card-text">내용:{{blog.summary}}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <a  class="btn btn-sm btn-outline-secondary" href="{% url 'detail' blog.id %}">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="container">
+    {% if posts.has_previous %}
+        <a href="?page=1" class="btn btn-dark">First</a>
+        <a href="{% url 'home'%}" class="btn btn-primary">Previous</a>
+    {% endif %}
+
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+
+    {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}" class="btn btn-primary">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}" class="btn btn-dark">Last</a>
+    {% endif %}
+</div>
+
+</div>
+<aside class="col-md-4 blog-sidebar">
+  <div class="sidewrapper"></div>
+    <div class="p-4 mb-3 bg-light rounded">
+    <div class="p-4">
+      <h4 class="font-italic">Archives</h4>
+      <ol class="list-unstyled mb-0">
+        <li><a class= "btn btn-outline-primary" href="#">상식</a></li>
+        <li><a class= "btn btn-outline-primary" href="#">철학</a></li>
+        <li><a class= "btn btn-outline-primary" href="#">정치</a></li>
+
+      </ol>
+    </div>
+  </div>
+  </aside>
+</div>
+<a href=
+{% endblock %}
